@@ -53,7 +53,15 @@ class DbConfig implements ConfigContract, ArrayAccess
 
         $this->items = $this->dbProvider->load();
     }
-
+    
+    
+    /**
+     * reload all items from DB
+     */
+    public function refresh()
+    {
+        $this->items = $this->dbProvider->load();
+    }
 
     /**
      * Save item into database and set to current config
