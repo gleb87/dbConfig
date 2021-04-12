@@ -1,6 +1,7 @@
 <?php namespace Terbium\DbConfig;
 
 use ArrayAccess;
+use Illuminate\Support\Arr;
 use Terbium\DbConfig\Interfaces\DbProviderInterface;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
 
@@ -53,8 +54,8 @@ class DbConfig implements ConfigContract, ArrayAccess
 
         $this->items = $this->dbProvider->load();
     }
-    
-    
+
+
     /**
      * reload all items from DB
      */
@@ -154,9 +155,7 @@ class DbConfig implements ConfigContract, ArrayAccess
      */
     public function has($key, $fallback = true)
     {
-
-
-        $exist = array_has($this->items, $key);
+        $exist = Arr::has($this->items, $key);
 
         if (!$exist && $fallback) {
             $exist = $this->origConfig->has($key);
@@ -175,9 +174,10 @@ class DbConfig implements ConfigContract, ArrayAccess
      */
     public function get($key, $default = null, $fallback = true)
     {
+        
         $d = microtime(true);
 
-        $result =  array_get($this->items, $key, $d);
+        $result = Arr::get($this->items, $key, $d);
 
 
         // found one in DB or

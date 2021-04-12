@@ -1,5 +1,6 @@
 <?php namespace Terbium\DbConfig;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\NamespacedItemResolver;
 use Terbium\DbConfig\Exceptions\SaveException;
@@ -47,7 +48,7 @@ class DbProvider extends NamespacedItemResolver implements Interfaces\DbProvider
         // convert dotted list back to multidimensional array
         foreach ($list as $key => $value) {
             $value = json_decode($value);
-            array_set($items, $key, $value);
+            Arr::set($items, $key, $value);
         }
 
         return $items;
@@ -69,7 +70,7 @@ class DbProvider extends NamespacedItemResolver implements Interfaces\DbProvider
         if (!is_array($value)) {
             $value = array($key => $value);
         } else {
-            $value = array_dot($value);
+            $value = Arr::dot($value);
 
             foreach ($value as $k => $v) {
                 $value[$key . '.' . $k] = $v;
