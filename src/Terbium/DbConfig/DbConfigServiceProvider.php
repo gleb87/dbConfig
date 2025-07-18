@@ -40,7 +40,7 @@ class DbConfigServiceProvider extends ServiceProvider
     public function register()
     {
 
-        // merge & publihs config
+        // merge & publish config
         $configPath = __DIR__ . '/../../../config/config.php';
         $this->mergeConfigFrom($configPath, 'db-config');
         $this->publishes([$configPath => config_path('db-config.php')]);
